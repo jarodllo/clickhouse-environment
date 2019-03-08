@@ -1,7 +1,15 @@
 version: '3'
 services:
+  clickhouse-client:
+    image: yandex/clickhouse-client:19.1.10
+    depends_on:
+      - clickhouse
+    links:
+      - clickhouse
   clickhouse:
-    image: yandex/clickhouse-server:18.16
+    image: yandex/clickhouse-server:19.1.10
     ports:
       - "8123:8123"
       - "9000:9000"
+    volumes:
+      - ./data/clickhouse/data:/var/lib/clickhouse
